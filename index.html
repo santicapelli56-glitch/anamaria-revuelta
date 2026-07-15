@@ -11,18 +11,27 @@
   SECCIÓN FIRMA: "Journey numerado" bilingüe — 01–04, "De tu llamada a tu sonrisa", con foco
   en que se atiende en el idioma del paciente (diferencial real del consultorio).
 
-  ORDEN DE SECCIONES (9, distinto del patrón header→hero centrado→servicios→sobre nosotros→form):
-  1. Header fijo (logo, nav, teléfono, ES/EN, agendar)
-  2. Hero editorial partido
+  ORDEN DE SECCIONES (distinto del patrón header→hero centrado→servicios→sobre nosotros→form):
+  1. Header fijo (logo real AMR, nav, teléfono, ES/EN, agendar)
+  2. Hero editorial partido (foto real de la doctora)
   3. Banda de confianza + stats reales (bilingüe, Medicaid, Facebook)
-  4. Servicios (grid asimétrico con SVG line-art)
-  5. Journey numerado (FIRMA)
-  6. Sobre la doctora (bio asimétrica, foto real circular, pills reales)
-  7. FAQ honesto (acordeón)
-  8. Ubicación y horarios (mapa real + horarios placeholder marcado)
-  9. Turnos (widget placeholder sin backend)
-  10. CTA final full-width
+  4. Banner ancho de consulta (foto de apoyo)
+  5. Servicios (grid asimétrico con SVG line-art; tarjeta "Limpieza dental" con foto de apoyo)
+  6. Journey numerado (FIRMA) con foto de apoyo de fondo
+  7. Sobre la doctora (bio asimétrica, foto real circular, pills reales)
+  8. Antes / después (foto de ejemplo ilustrativo, marcada como tal)
+  9. FAQ honesto (acordeón)
+  10. Ubicación y horarios (mapa real + horarios placeholder marcado)
+  11. Turnos (widget placeholder sin backend)
+  12. CTA final full-width
   + Footer y barra CTA sticky mobile
+
+  FOTOS: la foto de la doctora (hero + sobre mí) y el logo (header/footer/favicon) son reales,
+  provistos por el cliente. Las 4 fotos de apoyo (consulta-modelo-dental, prevencion-banner,
+  limpieza-cepillo, antes-despues) son imágenes de stock elegidas para esta demo — quedan
+  marcadas con <!-- REEMPLAZAR --> para sustituir por fotos propias del consultorio en producción.
+  La foto de antes/después es un ejemplo ilustrativo genérico, no un paciente real de la Dra.
+  Revuelta, y se etiqueta como tal en el copy para no generar una afirmación falsa.
 
   Placeholders a reemplazar en producción están marcados con comentarios <!-- REEMPLAZAR / PRODUCCIÓN -->.
 -->
@@ -35,16 +44,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo-amr.png">
 <style>
   :root{
     --bg:#FBF7F1;
     --surface:#FFFFFF;
     --surface-soft:#F3ECE0;
-    --ink:#2E2A24;
-    --muted:#78715F;
-    --primary:#5F7A5F;
-    --primary-dark:#465F46;
-    --primary-soft:#DCE6DC;
+    --ink:#12141B;
+    --muted:#6E7566;
+    --primary:#5B7A46;
+    --primary-dark:#3F5931;
+    --primary-soft:#DEE7D5;
     --accent:#D98E6B;
     --accent-soft:#F5DECA;
     --line:#E9DFCE;
@@ -116,7 +126,9 @@
     box-shadow:var(--shadow-sm);
   }
   .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;}
-  .brand{display:flex;flex-direction:column;line-height:1.1;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-logo{width:44px;height:44px;object-fit:contain;flex-shrink:0;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
   .brand-name{font-family:var(--font-head);font-weight:700;font-size:1.15rem;color:var(--primary-dark);}
   .brand-sub{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
   nav.main-nav{display:flex;align-items:center;gap:32px;}
@@ -233,6 +245,23 @@
   .stat-label{margin-top:6px;color:var(--muted);font-weight:700;font-size:.92rem;}
   @media (max-width:700px){.stats-row{grid-template-columns:1fr;gap:36px;}}
 
+  /* ---------- Banner de consulta ---------- */
+  .consult-banner{
+    position:relative;height:clamp(220px, 34vw, 360px);overflow:hidden;
+  }
+  .consult-banner img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+  .consult-banner::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(18,20,27,.55) 0%, rgba(18,20,27,0) 55%);
+  }
+  .consult-banner-caption{
+    position:absolute;left:0;bottom:0;z-index:1;padding:28px 24px;color:#fff;
+  }
+  .consult-banner-caption p{
+    font-family:var(--font-head);font-weight:700;font-size:clamp(1.05rem,2.4vw,1.5rem);
+    max-width:560px;
+  }
+
   /* ---------- Servicios ---------- */
   .services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap;}
   .services-grid{
@@ -246,6 +275,21 @@
   .service-card.featured{background:var(--primary);color:#fff;grid-row:span 1;}
   .service-card.featured .service-icon{background:rgba(255,255,255,.16);color:#fff;}
   .service-card.featured .service-desc{color:rgba(255,255,255,.85);}
+  .service-card.featured-photo{
+    position:relative;color:#fff;overflow:hidden;padding:0;border:none;
+    display:flex;align-items:flex-end;min-height:280px;
+  }
+  .service-card.featured-photo img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  }
+  .service-card.featured-photo::after{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(18,20,27,.05) 0%, rgba(18,20,27,.78) 100%);
+  }
+  .service-card.featured-photo .service-body{position:relative;z-index:2;padding:28px 26px;}
+  .service-card.featured-photo .service-icon{background:rgba(255,255,255,.2);color:#fff;}
+  .service-card.featured-photo .service-desc{color:rgba(255,255,255,.88);}
+  .service-card.featured-photo:hover{transform:translateY(-6px);}
   .service-icon{
     width:56px;height:56px;border-radius:16px;background:var(--primary-soft);
     display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--primary-dark);
@@ -257,7 +301,14 @@
   @media (max-width:600px){.services-grid{grid-template-columns:1fr;}}
 
   /* ---------- Journey (firma) ---------- */
-  .journey-section{background:var(--primary-dark);color:#fff;position:relative;overflow:hidden;}
+  .journey-section{
+    color:#fff;position:relative;overflow:hidden;
+    background:
+      linear-gradient(100deg, rgba(18,20,27,.92) 0%, rgba(18,20,27,.78) 38%, rgba(18,20,27,.4) 100%),
+      url('images/prevencion-banner.png');
+    background-size:cover;
+    background-position:center;
+  }
   .journey-section .eyebrow{color:var(--accent-soft);}
   .journey-section .eyebrow::before{background:var(--accent);}
   .journey-head{max-width:640px;margin-bottom:60px;}
@@ -297,6 +348,23 @@
   @media (max-width:860px){
     .about-grid{grid-template-columns:1fr;gap:36px;}
     .about-photo-wrap{order:-1;}
+  }
+
+  /* ---------- Antes / Después ---------- */
+  .results-section{background:var(--surface-soft);}
+  .results-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;}
+  .results-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);}
+  .results-photo img{width:100%;display:block;}
+  .results-tag{
+    display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.06em;
+    color:var(--muted);background:var(--surface);border:1px solid var(--line);
+    padding:5px 12px;border-radius:999px;margin-top:14px;
+  }
+  .results-copy h2{font-size:clamp(1.8rem,3.2vw,2.3rem);margin-bottom:18px;}
+  .results-copy p{color:var(--muted);font-size:1.03rem;margin-bottom:14px;}
+  @media (max-width:860px){
+    .results-grid{grid-template-columns:1fr;gap:28px;}
+    .results-copy{order:2;}
   }
 
   /* ---------- FAQ ---------- */
@@ -395,8 +463,11 @@
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <div class="brand">
-      <span class="brand-name">Dra. Ana Maria Revuelta</span>
-      <span class="brand-sub">DMD &middot; Hialeah, FL</span>
+      <img src="images/logo-amr.png" alt="Logo AMR &mdash; Dra. Ana Maria Revuelta" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">Dra. Ana Maria Revuelta</span>
+        <span class="brand-sub">DMD &middot; Hialeah, FL</span>
+      </div>
     </div>
     <nav class="main-nav">
       <a href="#servicios"><span data-lang-content="es">Servicios</span><span data-lang-content="en">Services</span></a>
@@ -531,6 +602,18 @@
     </div>
   </section>
 
+  <!-- BANNER DE CONSULTA -->
+  <section class="consult-banner reveal">
+    <!-- REEMPLAZAR: foto de stock, sustituir por una foto real del consultorio -->
+    <img src="images/consulta-modelo-dental.webp" alt="Consulta dental explicada con modelo de dentadura">
+    <div class="consult-banner-caption">
+      <p>
+        <span data-lang-content="es">Te mostramos cada paso, con modelos y palabras simples.</span>
+        <span data-lang-content="en">We walk you through every step, with models and simple words.</span>
+      </p>
+    </div>
+  </section>
+
   <!-- SERVICIOS -->
   <section class="section" id="servicios">
     <div class="container">
@@ -582,15 +665,19 @@
           <h3><span data-lang-content="es">Ortodoncia</span><span data-lang-content="en">Orthodontics</span></h3>
           <p class="service-desc"><span data-lang-content="es">Acompañamiento para alinear tu sonrisa a tu ritmo.</span><span data-lang-content="en">Guided treatment to align your smile at your own pace.</span></p>
         </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 8c-5 0-8 3-8 8 0 4 1 7 2 11 .5 2 1.5 4 3 4s2-3 2.5-5c.3-1 .8-1 1 0 .5 2 1 5 2.5 5s2.5-2 3-4c1-4 2-7 2-11 0-5-3-8-8-8z"/>
-              <path d="M34 10l1.6 1.6M36 8l1.4 1.4" stroke-linecap="round"/>
-            </svg>
+        <div class="service-card featured-photo reveal">
+          <!-- REEMPLAZAR: foto de stock, sustituir por una foto real del consultorio -->
+          <img src="images/limpieza-cepillo.webp" alt="Limpieza dental sobre modelo de dentadura">
+          <div class="service-body">
+            <div class="service-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 8c-5 0-8 3-8 8 0 4 1 7 2 11 .5 2 1.5 4 3 4s2-3 2.5-5c.3-1 .8-1 1 0 .5 2 1 5 2.5 5s2.5-2 3-4c1-4 2-7 2-11 0-5-3-8-8-8z"/>
+                <path d="M34 10l1.6 1.6M36 8l1.4 1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3><span data-lang-content="es">Limpieza dental</span><span data-lang-content="en">Teeth cleaning</span></h3>
+            <p class="service-desc"><span data-lang-content="es">Limpiezas regulares que previenen problemas antes de que empiecen.</span><span data-lang-content="en">Regular cleanings that prevent problems before they start.</span></p>
           </div>
-          <h3><span data-lang-content="es">Limpieza dental</span><span data-lang-content="en">Teeth cleaning</span></h3>
-          <p class="service-desc"><span data-lang-content="es">Limpiezas regulares que previenen problemas antes de que empiecen.</span><span data-lang-content="en">Regular cleanings that prevent problems before they start.</span></p>
         </div>
       </div>
     </div>
@@ -656,6 +743,27 @@
           <span class="pill"><span data-lang-content="es">Hialeah, FL</span><span data-lang-content="en">Hialeah, FL</span></span>
           <span class="pill"><span data-lang-content="es">Acepta Medicaid</span><span data-lang-content="en">Accepts Medicaid</span></span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANTES / DESPUÉS -->
+  <section class="section results-section" id="resultados">
+    <div class="container results-grid">
+      <div class="results-photo reveal">
+        <!-- REEMPLAZAR: foto ilustrativa de stock, no es un paciente real de la Dra. Revuelta -->
+        <img src="images/antes-despues.webp" alt="Ejemplo ilustrativo de antes y después de un cuidado dental constante">
+      </div>
+      <div class="results-copy reveal">
+        <div class="eyebrow"><span data-lang-content="es">Con constancia, se nota</span><span data-lang-content="en">Consistency shows</span></div>
+        <h2><span data-lang-content="es">Así de distinto se ve una sonrisa cuidada</span><span data-lang-content="en">This is what a well-cared-for smile looks like</span></h2>
+        <p>
+          <span data-lang-content="es">Entre exámenes regulares, limpiezas y un tratamiento a tiempo, el cambio se nota. Cada boca es distinta — en tu consulta te contamos qué es realista para la tuya.</span>
+          <span data-lang-content="en">Between regular exams, cleanings and timely treatment, the change is real. Every mouth is different — at your visit we'll tell you what's realistic for yours.</span>
+        </p>
+        <span class="results-tag">
+          <span data-lang-content="es">Ejemplo ilustrativo</span><span data-lang-content="en">Illustrative example</span>
+        </span>
       </div>
     </div>
   </section>
@@ -834,7 +942,10 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>Dra. Ana Maria Revuelta, DMD</h4>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="images/logo-amr.png" alt="Logo AMR" style="width:40px;height:40px;object-fit:contain;">
+          <h4 style="margin:0;">Dra. Ana Maria Revuelta, DMD</h4>
+        </div>
         <p>1255 W 46th St Ste 1<br>Hialeah, FL 33012</p>
         <div class="footer-socials">
           <!-- Redes reales de la Dra. Revuelta -->
