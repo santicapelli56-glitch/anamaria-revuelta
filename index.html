@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<!--
+  DIRECCIÓN DE DISEÑO: C — Cálido Familiar
+  Motivo: consultorio de barrio en Hialeah (FL), atención bilingüe ES/EN, acepta Medicaid,
+  clientela de cercanía. No hay tratamiento ancla ni reseñas de Google verificables, por lo
+  que se omiten anclaje de precio, calificación de candidato/a y testimonios con estrellas.
+
+  HERO: tipo (i) Editorial partido — titular a la izquierda + foto REAL de la Dra. Revuelta
+  sangrada a la derecha (no stock).
+
+  SECCIÓN FIRMA: "Journey numerado" bilingüe — 01–04, "De tu llamada a tu sonrisa", con foco
+  en que se atiende en el idioma del paciente (diferencial real del consultorio).
+
+  ORDEN DE SECCIONES (9, distinto del patrón header→hero centrado→servicios→sobre nosotros→form):
+  1. Header fijo (logo, nav, teléfono, ES/EN, agendar)
+  2. Hero editorial partido
+  3. Banda de confianza + stats reales (bilingüe, Medicaid, Facebook)
+  4. Servicios (grid asimétrico con SVG line-art)
+  5. Journey numerado (FIRMA)
+  6. Sobre la doctora (bio asimétrica, foto real circular, pills reales)
+  7. FAQ honesto (acordeón)
+  8. Ubicación y horarios (mapa real + horarios placeholder marcado)
+  9. Turnos (widget placeholder sin backend)
+  10. CTA final full-width
+  + Footer y barra CTA sticky mobile
+
+  Placeholders a reemplazar en producción están marcados con comentarios <!-- REEMPLAZAR / PRODUCCIÓN -->.
+-->
+<html lang="es" data-lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dra. Ana Maria Revuelta, DMD | Odontología familiar en Hialeah, FL</title>
+<meta name="description" content="Consultorio dental de la Dra. Ana Maria Revuelta en Hialeah, FL. Atención en español e inglés, aceptamos Medicaid. Exámenes, limpiezas, empastes y ortodoncia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1;
+    --surface:#FFFFFF;
+    --surface-soft:#F3ECE0;
+    --ink:#2E2A24;
+    --muted:#78715F;
+    --primary:#5F7A5F;
+    --primary-dark:#465F46;
+    --primary-soft:#DCE6DC;
+    --accent:#D98E6B;
+    --accent-soft:#F5DECA;
+    --line:#E9DFCE;
+    --radius-sm:10px;
+    --radius:20px;
+    --radius-lg:32px;
+    --shadow-sm:0 2px 10px rgba(46,42,36,.06);
+    --shadow:0 14px 34px -10px rgba(46,42,36,.18);
+    --shadow-lg:0 28px 64px -16px rgba(46,42,36,.24);
+    --font-head:'Poppins', sans-serif;
+    --font-body:'Nunito Sans', sans-serif;
+    --container:1200px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;margin:0;padding:0;}
+  button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;}
+  h1,h2,h3,h4{font-family:var(--font-head);margin:0;letter-spacing:-.01em;}
+  p{margin:0;}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--font-body);font-weight:800;font-size:.78rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--primary-dark);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);display:inline-block;border-radius:2px;}
+  .section{padding:96px 0;}
+  .section-tight{padding:64px 0;}
+  @media (max-width:760px){
+    .section{padding:64px 0;}
+    .section-tight{padding:44px 0;}
+  }
+
+  [data-lang-content]{display:none;}
+  html[data-lang="es"] [data-lang-content="es"]{display:inline;}
+  html[data-lang="es"] span[data-lang-content="es"],
+  html[data-lang="es"] div[data-lang-content="es"]{display:block;}
+  html[data-lang="en"] [data-lang-content="en"]{display:inline;}
+  html[data-lang="en"] span[data-lang-content="en"],
+  html[data-lang="en"] div[data-lang-content="en"]{display:block;}
+  html[data-lang="es"] .inline-es{display:inline;}
+  html[data-lang="en"] .inline-en{display:inline;}
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:22px 0;
+    transition:all .35s ease;
+    background:transparent;
+  }
+  header.site-header.scrolled{
+    padding:12px 0;
+    background:rgba(251,247,241,.92);
+    backdrop-filter:blur(10px);
+    box-shadow:var(--shadow-sm);
+  }
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-name{font-family:var(--font-head);font-weight:700;font-size:1.15rem;color:var(--primary-dark);}
+  .brand-sub{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  nav.main-nav{display:flex;align-items:center;gap:32px;}
+  nav.main-nav a{font-weight:700;font-size:.95rem;color:var(--ink);position:relative;}
+  nav.main-nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .25s ease;}
+  nav.main-nav a:hover::after{width:100%;}
+  .header-actions{display:flex;align-items:center;gap:12px;}
+  .lang-toggle{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface);}
+  .lang-toggle button{padding:6px 12px;font-weight:800;font-size:.78rem;background:transparent;border:none;cursor:pointer;color:var(--muted);}
+  .lang-toggle button.active{background:var(--primary);color:#fff;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 26px;border-radius:999px;font-weight:800;font-size:.94rem;
+    border:2px solid transparent;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow);}
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:#fff;}
+  .btn-accent{background:var(--accent);color:#fff;box-shadow:var(--shadow);}
+  .btn-accent:hover{background:#c67a55;}
+  .btn-sm{padding:9px 18px;font-size:.85rem;}
+  .desktop-only{display:inline-flex;}
+  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .hamburger span{display:block;width:26px;height:2.5px;background:var(--ink);margin:5px 0;border-radius:2px;transition:.3s;}
+
+  .mobile-menu{
+    position:fixed;inset:0;background:var(--bg);z-index:99;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+    transform:translateY(-100%);transition:transform .35s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:var(--font-head);font-size:1.4rem;font-weight:700;}
+  .mobile-menu .close-menu{position:absolute;top:24px;right:24px;background:none;border:none;font-size:2rem;cursor:pointer;color:var(--ink);}
+
+  @media (max-width:900px){
+    nav.main-nav{display:none;}
+    .desktop-only{display:none !important;}
+    .hamburger{display:block;}
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:170px 0 90px;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(600px 400px at 90% -10%, var(--accent-soft) 0%, transparent 70%),
+      radial-gradient(500px 400px at -10% 110%, var(--primary-soft) 0%, transparent 70%);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+  }
+  .hero-title{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    font-weight:700;line-height:1.08;color:var(--ink);
+  }
+  .hero-title .accent-word{color:var(--primary);}
+  .hero-sub{margin-top:22px;font-size:1.14rem;color:var(--muted);max-width:480px;}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .hero-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px;}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--surface);border:1px solid var(--line);
+    padding:9px 16px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--ink);
+    box-shadow:var(--shadow-sm);
+  }
+  .chip svg{width:16px;height:16px;color:var(--primary);flex-shrink:0;}
+
+  .hero-photo-wrap{position:relative;display:flex;justify-content:center;}
+  .hero-blob{
+    position:absolute;inset:-6% -10%;
+    background:linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+    border-radius:44% 56% 60% 40% / 46% 40% 60% 54%;
+    z-index:0;
+  }
+  .hero-photo{
+    position:relative;z-index:1;
+    width:100%;max-width:420px;
+    border-radius:36% 64% 58% 42% / 48% 42% 58% 52%;
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
+    border:6px solid var(--surface);
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5;}
+  .hero-card{
+    position:absolute;bottom:-18px;left:-10px;z-index:2;
+    background:var(--surface);border-radius:var(--radius);
+    padding:16px 20px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:12px;
+  }
+  .hero-card svg{width:34px;height:34px;color:var(--primary);flex-shrink:0;}
+  .hero-card strong{display:block;font-family:var(--font-head);font-size:1rem;}
+  .hero-card span{font-size:.8rem;color:var(--muted);}
+
+  @media (max-width:900px){
+    .hero{padding:140px 0 70px;}
+    .hero-grid{grid-template-columns:1fr;gap:48px;}
+    .hero-photo-wrap{order:-1;}
+    .hero-photo{max-width:300px;margin:0 auto;}
+  }
+
+  /* ---------- Confianza / stats ---------- */
+  .trust-band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .trust-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:56px;}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center;}
+  .stat-num{font-family:var(--font-head);font-weight:800;font-size:clamp(2rem,4vw,2.8rem);color:var(--primary-dark);}
+  .stat-label{margin-top:6px;color:var(--muted);font-weight:700;font-size:.92rem;}
+  @media (max-width:700px){.stats-row{grid-template-columns:1fr;gap:36px;}}
+
+  /* ---------- Servicios ---------- */
+  .services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap;}
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .service-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px 26px;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent;}
+  .service-card.featured{background:var(--primary);color:#fff;grid-row:span 1;}
+  .service-card.featured .service-icon{background:rgba(255,255,255,.16);color:#fff;}
+  .service-card.featured .service-desc{color:rgba(255,255,255,.85);}
+  .service-icon{
+    width:56px;height:56px;border-radius:16px;background:var(--primary-soft);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--primary-dark);
+  }
+  .service-icon svg{width:28px;height:28px;}
+  .service-card h3{font-size:1.12rem;margin-bottom:8px;}
+  .service-desc{color:var(--muted);font-size:.94rem;}
+  @media (max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.services-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Journey (firma) ---------- */
+  .journey-section{background:var(--primary-dark);color:#fff;position:relative;overflow:hidden;}
+  .journey-section .eyebrow{color:var(--accent-soft);}
+  .journey-section .eyebrow::before{background:var(--accent);}
+  .journey-head{max-width:640px;margin-bottom:60px;}
+  .journey-head h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.6rem);}
+  .journey-head p{margin-top:16px;color:rgba(255,255,255,.78);font-size:1.06rem;}
+  .journey-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+  .journey-step{position:relative;padding-top:12px;border-top:2px solid rgba(255,255,255,.22);}
+  .journey-num{
+    font-family:var(--font-head);font-weight:800;font-size:2.6rem;
+    color:var(--accent);opacity:.9;margin-bottom:14px;
+  }
+  .journey-step h3{color:#fff;font-size:1.08rem;margin-bottom:10px;}
+  .journey-step p{color:rgba(255,255,255,.75);font-size:.93rem;}
+  @media (max-width:900px){.journey-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.journey-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Sobre la doctora ---------- */
+  .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center;}
+  .about-photo-wrap{position:relative;}
+  .about-photo{
+    width:100%;max-width:340px;aspect-ratio:1/1;border-radius:50%;
+    overflow:hidden;box-shadow:var(--shadow-lg);border:8px solid var(--surface);margin:0 auto;
+  }
+  .about-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .about-ring{
+    position:absolute;inset:-14px;border:2px dashed var(--accent);border-radius:50%;
+    max-width:368px;margin:auto;
+  }
+  .about-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .pill{
+    background:var(--surface-soft);color:var(--primary-dark);font-weight:800;font-size:.82rem;
+    padding:8px 16px;border-radius:999px;
+  }
+  .about-copy h2{font-size:clamp(1.9rem,3.4vw,2.5rem);margin-bottom:20px;}
+  .about-copy p{color:var(--muted);font-size:1.05rem;margin-bottom:14px;}
+  .about-copy p strong{color:var(--ink);}
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr;gap:36px;}
+    .about-photo-wrap{order:-1;}
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:820px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-question{
+    width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:none;border:none;text-align:left;padding:24px 4px;cursor:pointer;
+    font-family:var(--font-head);font-weight:700;font-size:1.06rem;color:var(--ink);
+  }
+  .faq-question .plus{
+    width:26px;height:26px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--primary);
+    display:flex;align-items:center;justify-content:center;position:relative;transition:transform .3s ease;
+  }
+  .faq-question .plus::before,.faq-question .plus::after{
+    content:"";position:absolute;background:var(--primary);border-radius:2px;
+  }
+  .faq-question .plus::before{width:12px;height:2px;}
+  .faq-question .plus::after{width:2px;height:12px;transition:opacity .2s ease;}
+  .faq-item.open .plus{transform:rotate(180deg);}
+  .faq-item.open .plus::after{opacity:0;}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-answer-inner{padding:0 4px 24px;color:var(--muted);font-size:.98rem;max-width:680px;}
+
+  /* ---------- Ubicación ---------- */
+  .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch;}
+  .location-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-sm);}
+  .location-row{display:flex;gap:16px;margin-bottom:24px;}
+  .location-row svg{width:24px;height:24px;color:var(--primary);flex-shrink:0;margin-top:2px;}
+  .location-row h4{font-size:1.02rem;margin-bottom:4px;}
+  .location-row p{color:var(--muted);font-size:.95rem;}
+  .map-frame{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);min-height:340px;border:1px solid var(--line);}
+  .map-frame iframe{width:100%;height:100%;min-height:340px;border:0;display:block;}
+  @media (max-width:860px){.location-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Turnos ---------- */
+  .turnos-section{background:var(--surface-soft);}
+  .turnos-card{
+    max-width:720px;margin:0 auto;background:var(--surface);border-radius:var(--radius-lg);
+    padding:48px;box-shadow:var(--shadow);
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .form-field{display:flex;flex-direction:column;gap:8px;}
+  .form-field label{font-weight:800;font-size:.85rem;}
+  .form-field input,.form-field select{
+    padding:13px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);
+  }
+  .form-field input:focus,.form-field select:focus{border-color:var(--primary);outline:none;}
+  .turnos-confirm{
+    display:none;margin-top:22px;padding:18px 20px;border-radius:14px;
+    background:var(--primary-soft);color:var(--primary-dark);font-weight:700;align-items:center;gap:12px;
+  }
+  .turnos-confirm.show{display:flex;}
+  .turnos-confirm svg{width:24px;height:24px;flex-shrink:0;}
+  @media (max-width:600px){.form-row{grid-template-columns:1fr;}.turnos-card{padding:30px 22px;}}
+
+  /* ---------- CTA final ---------- */
+  .cta-final{
+    background:linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color:#fff;text-align:center;
+  }
+  .cta-final h2{font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:16px;}
+  .cta-final p{color:rgba(255,255,255,.85);font-size:1.08rem;max-width:560px;margin:0 auto 32px;}
+  .cta-final .hero-ctas{justify-content:center;}
+  .cta-final .btn-outline{border-color:#fff;color:#fff;}
+  .cta-final .btn-outline:hover{background:#fff;color:var(--primary-dark);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:rgba(255,255,255,.82);padding:64px 0 32px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  footer h4{color:#fff;font-family:var(--font-head);margin-bottom:16px;font-size:1rem;}
+  footer p, footer a{color:rgba(255,255,255,.68);font-size:.92rem;}
+  footer a:hover{color:#fff;}
+  .footer-socials{display:flex;gap:12px;margin-top:16px;}
+  .footer-socials a{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .footer-socials a:hover{background:var(--accent);}
+  .footer-socials svg{width:17px;height:17px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.14);padding-top:24px;font-size:.84rem;color:rgba(255,255,255,.5);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (max-width:760px){.footer-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Sticky mobile CTA ---------- */
+  .sticky-cta{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;
+    background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(46,42,36,.12);
+    padding:12px 16px;gap:10px;
+  }
+  @media (max-width:760px){.sticky-cta{display:flex;}body{padding-bottom:74px;}}
+  .sticky-cta .btn{flex:1;padding:13px;font-size:.9rem;}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <div class="brand">
+      <span class="brand-name">Dra. Ana Maria Revuelta</span>
+      <span class="brand-sub">DMD &middot; Hialeah, FL</span>
+    </div>
+    <nav class="main-nav">
+      <a href="#servicios"><span data-lang-content="es">Servicios</span><span data-lang-content="en">Services</span></a>
+      <a href="#proceso"><span data-lang-content="es">Proceso</span><span data-lang-content="en">Process</span></a>
+      <a href="#doctora"><span data-lang-content="es">Sobre mí</span><span data-lang-content="en">About</span></a>
+      <a href="#faq">FAQ</a>
+      <a href="#ubicacion"><span data-lang-content="es">Ubicación</span><span data-lang-content="en">Location</span></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+        <button type="button" id="langEs" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="tel:+13055582933" class="btn btn-outline btn-sm desktop-only">
+        <span data-lang-content="es">(305) 558-2933</span><span data-lang-content="en">(305) 558-2933</span>
+      </a>
+      <a href="#turnos" class="btn btn-primary btn-sm desktop-only">
+        <span data-lang-content="es">Agendar</span><span data-lang-content="en">Book Now</span>
+      </a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" id="closeMenu" aria-label="Cerrar menú">&times;</button>
+  <a href="#servicios" class="mobile-link"><span data-lang-content="es">Servicios</span><span data-lang-content="en">Services</span></a>
+  <a href="#proceso" class="mobile-link"><span data-lang-content="es">Proceso</span><span data-lang-content="en">Process</span></a>
+  <a href="#doctora" class="mobile-link"><span data-lang-content="es">Sobre mí</span><span data-lang-content="en">About</span></a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#ubicacion" class="mobile-link"><span data-lang-content="es">Ubicación</span><span data-lang-content="en">Location</span></a>
+  <a href="tel:+13055582933" class="btn btn-primary">(305) 558-2933</a>
+</div>
+
+<main>
+
+  <!-- HERO — editorial partido -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal is-visible">
+        <h1 class="hero-title">
+          <span data-lang-content="es">Cuidado dental para toda la familia, <span class="accent-word">en tu idioma</span>.</span>
+          <span data-lang-content="en">Family dental care, <span class="accent-word">in your language</span>.</span>
+        </h1>
+        <p class="hero-sub">
+          <span data-lang-content="es">La Dra. Ana Maria Revuelta atiende en Hialeah con exámenes, limpiezas, empastes y ortodoncia — explicados en español o inglés, sin apuros.</span>
+          <span data-lang-content="en">Dr. Ana Maria Revuelta treats patients in Hialeah with exams, cleanings, fillings and orthodontics — explained in English or Spanish, no rush.</span>
+        </p>
+        <div class="hero-ctas">
+          <a href="#turnos" class="btn btn-primary">
+            <span data-lang-content="es">Agendar mi cita</span><span data-lang-content="en">Book my visit</span>
+          </a>
+          <a href="tel:+13055582933" class="btn btn-outline">
+            <span data-lang-content="es">Llamar ahora</span><span data-lang-content="en">Call now</span>
+          </a>
+        </div>
+        <div class="hero-chips">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+            <span data-lang-content="es">Español &amp; English</span><span data-lang-content="en">Español &amp; English</span>
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l6 6L20 6"/></svg>
+            <span data-lang-content="es">Aceptamos Medicaid</span><span data-lang-content="en">We accept Medicaid</span>
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-9.5-9.6C.8 7.8 2.5 4 6 4c2 0 3.5 1.2 4.2 2.6C11 5.2 12.5 4 14.5 4 18 4 19.7 7.8 18 11.4 15.5 15.8 12 21 12 21z"/></svg>
+            <span data-lang-content="es">Hialeah, FL</span><span data-lang-content="en">Hialeah, FL</span>
+          </span>
+        </div>
+      </div>
+      <div class="hero-photo-wrap reveal is-visible">
+        <div class="hero-blob" aria-hidden="true"></div>
+        <div class="hero-photo">
+          <!-- Foto real de la Dra. Revuelta en su consultorio -->
+          <img src="images/dra-ana-maria-revuelta.png" alt="Dra. Ana Maria Revuelta, dentista en Hialeah, FL" loading="eager">
+        </div>
+        <div class="hero-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4a4 4 0 100 8 4 4 0 000-8zM4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+          <div>
+            <strong>Dra. Ana Maria Revuelta</strong>
+            <span data-lang-content="es">DMD &middot; Odontología general</span>
+            <span data-lang-content="en">DMD &middot; General Dentistry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDA DE CONFIANZA + STATS -->
+  <section class="trust-band section-tight">
+    <div class="container">
+      <div class="trust-row reveal">
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+          <span data-lang-content="es">Atención bilingüe ES/EN</span><span data-lang-content="en">Bilingual care ES/EN</span>
+        </span>
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 2v4M16 2v4M4 10h16"/></svg>
+          <span data-lang-content="es">Medicaid aceptado</span><span data-lang-content="en">Medicaid accepted</span>
+        </span>
+        <span class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-9.5-9.6C.8 7.8 2.5 4 6 4c2 0 3.5 1.2 4.2 2.6C11 5.2 12.5 4 14.5 4 18 4 19.7 7.8 18 11.4 15.5 15.8 12 21 12 21z"/></svg>
+          <span data-lang-content="es">1255 W 46th St, Hialeah</span><span data-lang-content="en">1255 W 46th St, Hialeah</span>
+        </span>
+      </div>
+      <div class="stats-row reveal">
+        <div>
+          <div class="stat-num" data-count="1059">0</div>
+          <div class="stat-label">
+            <span data-lang-content="es">familias siguen su página en Facebook</span>
+            <span data-lang-content="en">families follow her page on Facebook</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="2">0</div>
+          <div class="stat-label">
+            <span data-lang-content="es">idiomas de atención: español e inglés</span>
+            <span data-lang-content="en">languages spoken: Spanish and English</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="5">0</div>
+          <div class="stat-label">
+            <span data-lang-content="es">servicios dentales para tu familia</span>
+            <span data-lang-content="en">dental services for your family</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="services-head reveal">
+        <div>
+          <div class="eyebrow"><span data-lang-content="es">Qué hacemos</span><span data-lang-content="en">What we do</span></div>
+          <h2><span data-lang-content="es">Servicios pensados para cada etapa de tu sonrisa</span><span data-lang-content="en">Services for every stage of your smile</span></h2>
+        </div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 8c-5 0-8 3-8 8 0 4 1 7 2 11 .5 2 1.5 4 3 4s2-3 2.5-5c.3-1 .8-1 1 0 .5 2 1 5 2.5 5s2.5-2 3-4c1-4 2-7 2-11 0-5-3-8-8-8z"/>
+              <circle cx="22" cy="19" r="1.6" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3><span data-lang-content="es">Tratamiento de caries</span><span data-lang-content="en">Cavity treatment</span></h3>
+          <p class="service-desc"><span data-lang-content="es">Diagnóstico temprano y tratamiento cuidadoso para detener la caries a tiempo.</span><span data-lang-content="en">Early diagnosis and careful treatment to stop cavities before they spread.</span></p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="20" cy="20" r="10"/><path d="M27.5 27.5L36 36"/>
+            </svg>
+          </div>
+          <h3><span data-lang-content="es">Exámenes dentales</span><span data-lang-content="en">Dental exams</span></h3>
+          <p class="service-desc"><span data-lang-content="es">Revisión completa para conocer el estado real de tu boca y planear los próximos pasos.</span><span data-lang-content="en">A full check-up to understand your mouth's real condition and plan next steps.</span></p>
+        </div>
+        <div class="service-card featured reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 8c-5 0-8 3-8 8 0 4 1 7 2 11 .5 2 1.5 4 3 4s2-3 2.5-5c.3-1 .8-1 1 0 .5 2 1 5 2.5 5s2.5-2 3-4c1-4 2-7 2-11 0-5-3-8-8-8z"/>
+              <path d="M31 12l4-4M35 12l-4-4"/>
+            </svg>
+          </div>
+          <h3><span data-lang-content="es">Reparación de empastes</span><span data-lang-content="en">Filling replacement &amp; repair</span></h3>
+          <p class="service-desc"><span data-lang-content="es">Reemplazamos o reparamos empastes desgastados para que tu diente siga fuerte.</span><span data-lang-content="en">We replace or repair worn fillings so your tooth stays strong.</span></p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 26c4 6 24 6 28 0"/>
+              <circle cx="16" cy="24" r="1.4" fill="currentColor" stroke="none"/>
+              <circle cx="24" cy="26" r="1.4" fill="currentColor" stroke="none"/>
+              <circle cx="32" cy="24" r="1.4" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3><span data-lang-content="es">Ortodoncia</span><span data-lang-content="en">Orthodontics</span></h3>
+          <p class="service-desc"><span data-lang-content="es">Acompañamiento para alinear tu sonrisa a tu ritmo.</span><span data-lang-content="en">Guided treatment to align your smile at your own pace.</span></p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 8c-5 0-8 3-8 8 0 4 1 7 2 11 .5 2 1.5 4 3 4s2-3 2.5-5c.3-1 .8-1 1 0 .5 2 1 5 2.5 5s2.5-2 3-4c1-4 2-7 2-11 0-5-3-8-8-8z"/>
+              <path d="M34 10l1.6 1.6M36 8l1.4 1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3><span data-lang-content="es">Limpieza dental</span><span data-lang-content="en">Teeth cleaning</span></h3>
+          <p class="service-desc"><span data-lang-content="es">Limpiezas regulares que previenen problemas antes de que empiecen.</span><span data-lang-content="en">Regular cleanings that prevent problems before they start.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY — SECCIÓN FIRMA -->
+  <section class="journey-section section" id="proceso">
+    <div class="container">
+      <div class="journey-head reveal">
+        <div class="eyebrow"><span data-lang-content="es">Cómo funciona</span><span data-lang-content="en">How it works</span></div>
+        <h2><span data-lang-content="es">De tu llamada a tu sonrisa</span><span data-lang-content="en">From your call to your smile</span></h2>
+        <p><span data-lang-content="es">Sin trámites confusos ni sorpresas. Así es tu primera visita, de principio a fin — en el idioma en que te sientas más cómodo/a.</span><span data-lang-content="en">No confusing paperwork, no surprises. Here's your first visit, start to finish — in whichever language feels most comfortable.</span></p>
+      </div>
+      <div class="journey-grid">
+        <div class="journey-step reveal">
+          <div class="journey-num">01</div>
+          <h3><span data-lang-content="es">Llamás o escribís</span><span data-lang-content="en">You call or message</span></h3>
+          <p><span data-lang-content="es">Nos contás qué necesitás, en español o en inglés.</span><span data-lang-content="en">Tell us what you need, in Spanish or English.</span></p>
+        </div>
+        <div class="journey-step reveal">
+          <div class="journey-num">02</div>
+          <h3><span data-lang-content="es">Te recibimos</span><span data-lang-content="en">We welcome you</span></h3>
+          <p><span data-lang-content="es">La Dra. Revuelta te atiende personalmente, sin apuros.</span><span data-lang-content="en">Dr. Revuelta sees you personally, with no rush.</span></p>
+        </div>
+        <div class="journey-step reveal">
+          <div class="journey-num">03</div>
+          <h3><span data-lang-content="es">Plan claro</span><span data-lang-content="en">A clear plan</span></h3>
+          <p><span data-lang-content="es">Te explicamos el diagnóstico y las opciones, sin tecnicismos.</span><span data-lang-content="en">We explain the diagnosis and your options, no jargon.</span></p>
+        </div>
+        <div class="journey-step reveal">
+          <div class="journey-num">04</div>
+          <h3><span data-lang-content="es">Seguimiento</span><span data-lang-content="en">Follow-through</span></h3>
+          <p><span data-lang-content="es">Cuidamos tu tratamiento hasta el final, cita a cita.</span><span data-lang-content="en">We stay with your treatment until it's done, visit by visit.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE LA DOCTORA -->
+  <section class="section" id="doctora">
+    <div class="container about-grid">
+      <div class="about-photo-wrap reveal">
+        <div class="about-ring" aria-hidden="true"></div>
+        <div class="about-photo">
+          <!-- Foto real de la Dra. Revuelta -->
+          <img src="images/dra-ana-maria-revuelta.png" alt="Retrato de la Dra. Ana Maria Revuelta">
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <div class="eyebrow"><span data-lang-content="es">Conocé a tu dentista</span><span data-lang-content="en">Meet your dentist</span></div>
+        <h2><span data-lang-content="es">Dra. Ana Maria Revuelta, DMD</span><span data-lang-content="en">Dr. Ana Maria Revuelta, DMD</span></h2>
+        <p>
+          <span data-lang-content="es"><strong>La Dra. Revuelta</strong> atiende su consultorio en Hialeah con un enfoque simple: escuchar primero, explicar todo con claridad y tratar a cada paciente como si fuera de la familia.</span>
+          <span data-lang-content="en"><strong>Dr. Revuelta</strong> runs her Hialeah practice with a simple approach: listen first, explain everything clearly, and treat every patient like family.</span>
+        </p>
+        <p>
+          <span data-lang-content="es">Atiende en español e inglés, para que nunca tengas que adivinar qué te están por hacer en la silla.</span>
+          <span data-lang-content="en">She treats patients in both Spanish and English, so you never have to guess what's happening in the chair.</span>
+        </p>
+        <div class="about-pills">
+          <span class="pill">DMD</span>
+          <span class="pill"><span data-lang-content="es">Bilingüe ES/EN</span><span data-lang-content="en">Bilingual ES/EN</span></span>
+          <span class="pill"><span data-lang-content="es">Hialeah, FL</span><span data-lang-content="en">Hialeah, FL</span></span>
+          <span class="pill"><span data-lang-content="es">Acepta Medicaid</span><span data-lang-content="en">Accepts Medicaid</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="background:var(--surface-soft);">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto 48px;" class="reveal">
+        <div class="eyebrow" style="justify-content:center;"><span data-lang-content="es">Preguntas frecuentes</span><span data-lang-content="en">FAQ</span></div>
+        <h2><span data-lang-content="es">Lo que todo paciente quiere saber</span><span data-lang-content="en">What every patient wants to know</span></h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span><span data-lang-content="es">¿Atienden en español?</span><span data-lang-content="en">Do you speak Spanish?</span></span>
+            <span class="plus"></span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <span data-lang-content="es">Sí. La Dra. Revuelta y su equipo atienden en español e inglés, así que podés explicar cómo te sentís en el idioma que prefieras.</span>
+            <span data-lang-content="en">Yes. Dr. Revuelta and her team speak both Spanish and English, so you can describe how you feel in whichever language you prefer.</span>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span><span data-lang-content="es">¿Aceptan Medicaid?</span><span data-lang-content="en">Do you accept Medicaid?</span></span>
+            <span class="plus"></span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <span data-lang-content="es">Sí, aceptamos Medicaid. Llamá al consultorio y te ayudamos a confirmar tu cobertura antes de la cita.</span>
+            <span data-lang-content="en">Yes, we accept Medicaid. Call the office and we'll help confirm your coverage before your visit.</span>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span><span data-lang-content="es">¿Qué incluye una limpieza dental?</span><span data-lang-content="en">What's included in a cleaning?</span></span>
+            <span class="plus"></span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <span data-lang-content="es">Una revisión del estado de tus dientes y encías, remoción de placa y sarro, y recomendaciones concretas para cuidar tu sonrisa en casa.</span>
+            <span data-lang-content="en">A check of your teeth and gums, removal of plaque and tartar, and concrete recommendations for caring for your smile at home.</span>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span><span data-lang-content="es">¿Hacen ortodoncia para adultos?</span><span data-lang-content="en">Do you offer orthodontics for adults?</span></span>
+            <span class="plus"></span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <span data-lang-content="es">Sí. Evaluamos tu caso en la consulta y te explicamos las opciones disponibles según tu situación.</span>
+            <span data-lang-content="en">Yes. We evaluate your case at your visit and walk you through the options available for your situation.</span>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span><span data-lang-content="es">¿Cómo agendo mi primera cita?</span><span data-lang-content="en">How do I book my first visit?</span></span>
+            <span class="plus"></span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <span data-lang-content="es">Podés llamar al (305) 558-2933 o completar el formulario de turnos más abajo y te confirmamos a la brevedad.</span>
+            <span data-lang-content="en">You can call (305) 558-2933 or fill out the appointment form below and we'll confirm shortly.</span>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="section" id="ubicacion">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto 48px;" class="reveal">
+        <div class="eyebrow" style="justify-content:center;"><span data-lang-content="es">Visitanos</span><span data-lang-content="en">Visit us</span></div>
+        <h2><span data-lang-content="es">Un consultorio cerca tuyo, en Hialeah</span><span data-lang-content="en">A practice close to you, in Hialeah</span></h2>
+      </div>
+      <div class="location-grid reveal">
+        <div class="location-card">
+          <div class="location-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-9.5-9.6C.8 7.8 2.5 4 6 4c2 0 3.5 1.2 4.2 2.6C11 5.2 12.5 4 14.5 4 18 4 19.7 7.8 18 11.4 15.5 15.8 12 21 12 21z"/></svg>
+            <div>
+              <h4><span data-lang-content="es">Dirección</span><span data-lang-content="en">Address</span></h4>
+              <p>1255 W 46th St Ste 1, Hialeah, FL 33012</p>
+            </div>
+          </div>
+          <div class="location-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5a2 2 0 012-2h2.28a1 1 0 01.98.8l.7 3.5a1 1 0 01-.5 1.08l-1.6.8a11 11 0 006 6l.8-1.6a1 1 0 011.08-.5l3.5.7a1 1 0 01.8.98V19a2 2 0 01-2 2h-1C9.7 21 3 14.3 3 6V5z"/></svg>
+            <div>
+              <h4><span data-lang-content="es">Teléfono</span><span data-lang-content="en">Phone</span></h4>
+              <p><a href="tel:+13055582933">(305) 558-2933</a></p>
+            </div>
+          </div>
+          <div class="location-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <div>
+              <h4><span data-lang-content="es">Horarios</span><span data-lang-content="en">Hours</span></h4>
+              <!-- REEMPLAZAR: confirmar horarios reales con el consultorio -->
+              <p><span data-lang-content="es">Lun–Vie: 9:00 am – 5:00 pm (confirmar por teléfono)</span><span data-lang-content="en">Mon–Fri: 9:00 am – 5:00 pm (please confirm by phone)</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="map-frame">
+          <!-- REEMPLAZAR/PRODUCCIÓN: verificar embed de Google Maps en GitHub Pages real -->
+          <iframe
+            src="https://www.google.com/maps?q=1255+W+46th+St+Ste+1,+Hialeah,+FL+33012&output=embed"
+            title="Mapa: 1255 W 46th St Ste 1, Hialeah, FL 33012"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TURNOS -->
+  <section class="section turnos-section" id="turnos">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto 40px;" class="reveal">
+        <div class="eyebrow" style="justify-content:center;"><span data-lang-content="es">Reservá tu lugar</span><span data-lang-content="en">Reserve your spot</span></div>
+        <h2><span data-lang-content="es">Agendá tu cita</span><span data-lang-content="en">Book your appointment</span></h2>
+      </div>
+      <div class="turnos-card reveal">
+        <!-- PRODUCCIÓN: reemplazar por embed de NexHealth/LocalMed o Calendly según contrate el cliente -->
+        <form id="turnosForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="tName"><span data-lang-content="es">Nombre completo</span><span data-lang-content="en">Full name</span></label>
+              <input type="text" id="tName" required>
+            </div>
+            <div class="form-field">
+              <label for="tPhone"><span data-lang-content="es">Teléfono</span><span data-lang-content="en">Phone</span></label>
+              <input type="tel" id="tPhone" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="tReason"><span data-lang-content="es">Motivo de consulta</span><span data-lang-content="en">Reason for visit</span></label>
+              <select id="tReason"></select>
+            </div>
+            <div class="form-field">
+              <label for="tDate"><span data-lang-content="es">Fecha preferida</span><span data-lang-content="en">Preferred date</span></label>
+              <input type="date" id="tDate" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
+            <span data-lang-content="es">Solicitar turno</span><span data-lang-content="en">Request appointment</span>
+          </button>
+        </form>
+        <div class="turnos-confirm" id="turnosConfirm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
+          <span>
+            <span data-lang-content="es">¡Listo! Recibimos tu solicitud y te contactamos al teléfono indicado para confirmar.</span>
+            <span data-lang-content="en">Done! We received your request and will call you back to confirm.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section cta-final">
+    <div class="container reveal">
+      <h2><span data-lang-content="es">Tu sonrisa, cuidada cerca de casa</span><span data-lang-content="en">Your smile, cared for close to home</span></h2>
+      <p><span data-lang-content="es">Llamá hoy o agendá online — la Dra. Revuelta y su equipo te esperan en Hialeah.</span><span data-lang-content="en">Call today or book online — Dr. Revuelta and her team are ready for you in Hialeah.</span></p>
+      <div class="hero-ctas">
+        <a href="tel:+13055582933" class="btn btn-accent">
+          <span data-lang-content="es">Llamar: (305) 558-2933</span><span data-lang-content="en">Call: (305) 558-2933</span>
+        </a>
+        <a href="#turnos" class="btn btn-outline">
+          <span data-lang-content="es">Agendar online</span><span data-lang-content="en">Book online</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Dra. Ana Maria Revuelta, DMD</h4>
+        <p>1255 W 46th St Ste 1<br>Hialeah, FL 33012</p>
+        <div class="footer-socials">
+          <!-- Redes reales de la Dra. Revuelta -->
+          <a href="https://www.instagram.com/tutyrevuelta/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/anamaria.revuelta" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 8h2V5h-2a4 4 0 00-4 4v2H9v3h2v7h3v-7h2.2l.8-3H14V9c0-.6.4-1 1-1z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4><span data-lang-content="es">Navegación</span><span data-lang-content="en">Navigation</span></h4>
+        <p><a href="#servicios"><span data-lang-content="es">Servicios</span><span data-lang-content="en">Services</span></a></p>
+        <p><a href="#doctora"><span data-lang-content="es">Sobre mí</span><span data-lang-content="en">About</span></a></p>
+        <p><a href="#faq">FAQ</a></p>
+        <p><a href="#ubicacion"><span data-lang-content="es">Ubicación</span><span data-lang-content="en">Location</span></a></p>
+      </div>
+      <div>
+        <h4><span data-lang-content="es">Contacto</span><span data-lang-content="en">Contact</span></h4>
+        <p><a href="tel:+13055582933">(305) 558-2933</a></p>
+        <p><a href="#turnos"><span data-lang-content="es">Agendar cita</span><span data-lang-content="en">Book an appointment</span></a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Dra. Ana Maria Revuelta, DMD.
+        <span data-lang-content="es">Todos los derechos reservados.</span><span data-lang-content="en">All rights reserved.</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="tel:+13055582933" class="btn btn-outline">
+    <span data-lang-content="es">Llamar</span><span data-lang-content="en">Call</span>
+  </a>
+  <a href="#turnos" class="btn btn-primary">
+    <span data-lang-content="es">Agendar</span><span data-lang-content="en">Book</span>
+  </a>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = document.getElementById('closeMenu');
+  hamburgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // Language toggle
+  const reasonOptions = {
+    es: ['Tratamiento de caries', 'Examen dental', 'Reparación de empaste', 'Ortodoncia', 'Limpieza dental', 'Otro'],
+    en: ['Cavity treatment', 'Dental exam', 'Filling repair', 'Orthodontics', 'Teeth cleaning', 'Other']
+  };
+  function buildReasonOptions(lang){
+    const select = document.getElementById('tReason');
+    select.innerHTML = '';
+    reasonOptions[lang].forEach(text => {
+      const opt = document.createElement('option');
+      opt.value = text;
+      opt.textContent = text;
+      select.appendChild(opt);
+    });
+  }
+  function setLang(lang){
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+    document.getElementById('langEs').classList.toggle('active', lang === 'es');
+    document.getElementById('langEn').classList.toggle('active', lang === 'en');
+    buildReasonOptions(lang);
+  }
+  buildReasonOptions('es');
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.stat-num');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now){
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target).toLocaleString('en-US');
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => counterObserver.observe(el));
+
+  // FAQ accordion
+  const faqItems = Array.from(document.querySelectorAll('.faq-item')).map(item => ({
+    item,
+    question: item.querySelector('.faq-question'),
+    answer: item.querySelector('.faq-answer')
+  }));
+  faqItems.forEach(({ item, question, answer }) => {
+    question.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      faqItems.forEach(other => {
+        other.item.classList.remove('open');
+        other.answer.style.maxHeight = null;
+      });
+      if (!isOpen){
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Turnos form (sin backend)
+  const turnosForm = document.getElementById('turnosForm');
+  const turnosConfirm = document.getElementById('turnosConfirm');
+  turnosForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!turnosForm.checkValidity()){
+      turnosForm.reportValidity();
+      return;
+    }
+    turnosConfirm.classList.add('show');
+    turnosForm.reset();
+    buildReasonOptions(document.documentElement.getAttribute('data-lang'));
+  });
+</script>
+
+</body>
+</html>
